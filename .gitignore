@@ -1,0 +1,7 @@
+.vercel
+node_modules/
+agent/bin/
+agent/obj/
+agent/dist/
+agent/tests/bin/
+agent/tests/obj/

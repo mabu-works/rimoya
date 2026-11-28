@@ -1,0 +1,1 @@
+{"description":"リモや｜画面共有・リモート操作","name":"rimoya","private":true,"scripts":{"check":"node --check js/rimoya-core.js && node --check viewer.js && node --check host.js && node --check sw.js","test":"node --test tests/"},"version":"1.0.0"}
