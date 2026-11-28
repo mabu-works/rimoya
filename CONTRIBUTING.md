@@ -19,7 +19,7 @@ maintainer's repositories (adopted from aegis-app/aegis-bot).
 ## Checks for this repository
 
 - Web (unit tests for the shared protocol core):
-  `node --test tests/` (Node 22, no dependencies to install)
+  `node --test tests/*.test.js` (Node 22+, no dependencies to install)
 - Windows input agent (build):
   `agent/build.bat` on Windows, or `agent/build.sh` on the maintainer's
   Linux VM. The built `RimoyaAgent.exe` lands in `agent/dist/` and is

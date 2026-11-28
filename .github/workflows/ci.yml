@@ -21,4 +21,4 @@ jobs:
           node --check host.js
           node --check sw.js
       - name: Run unit tests
-        run: node --test tests/
+        run: node --test tests/*.test.js

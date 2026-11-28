@@ -14,4 +14,11 @@
 
   <!-- 外部 NuGet パッケージは使わない（標準ライブラリのみ） -->
 
+  <!-- tests/ は独立プロジェクトなので、本体の既定グロブから外す -->
+  <ItemGroup>
+    <Compile Remove="tests/**/*.cs" />
+    <None Remove="tests/**/*" />
+    <Content Remove="tests/**/*" />
+  </ItemGroup>
+
 </Project>

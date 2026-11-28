@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>RimoyaAgent.Tests</AssemblyName>
+    <RootNamespace>RimoyaAgent.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <!-- テスト対象は Windows API に依存しない純粋ロジックだけをリンクする -->
+  <ItemGroup>
+    <Compile Include="..\InputMath.cs" Link="InputMath.cs" />
+    <Compile Include="..\KeyMap.cs" Link="KeyMap.cs" />
+  </ItemGroup>
+
+</Project>
