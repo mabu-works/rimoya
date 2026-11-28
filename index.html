@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リモや｜画面共有・リモート操作</title>
+<meta name="description" content="ブラウザだけでPCの画面を共有し、離れた場所からマウス・キーボード操作できるWebツール。映像はWebRTCで暗号化され、接続にはパスコードが必要です。">
+<meta name="theme-color" content="#0a0f1c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="./">リモや</a>
+    <span class="nav-note">接続には共有コードとパスコードが必要です</span>
+  </div>
+</nav>
+
+<header class="site-header">
+  <p class="eyebrow">SCREEN SHARE &amp; REMOTE CONTROL</p>
+  <h1>リモや</h1>
+  <p class="tagline">画面共有・リモート操作</p>
+  <p class="privacy-note">映像と操作信号は WebRTC で暗号化されて、あなたの端末同士で直接やり取りされます。</p>
+</header>
+
+<main>
+  <section class="card" id="connectCard">
+    <h2>操作する（接続側）</h2>
+    <p class="note">共有側の画面に表示された「共有コード」と「パスコード」を入力してください。</p>
+    <div class="connect-form">
+      <label>共有コード <input id="codeInput" type="text" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="6桁の数字"></label>
+      <label>パスコード <input id="passInput" type="password" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="6桁の数字"></label>
+      <button id="connectBtn" class="btn btn-primary" type="button">接続</button>
+      <button id="disconnectBtn" class="btn btn-sub" type="button" disabled>切断</button>
+    </div>
+    <p id="statusMsg" class="note" aria-live="polite">未接続です。</p>
+  </section>
+
+  <section class="card" id="screenCard" hidden>
+    <h2>共有画面</h2>
+    <div id="videoWrap" class="video-wrap" tabindex="0">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <p id="videoHint" class="video-hint">映像の到着を待っています…</p>
+    </div>
+    <div class="screen-actions">
+      <button id="fullscreenBtn" class="btn btn-sub" type="button">全画面</button>
+      <label class="check"><input id="keyboardToggle" type="checkbox" checked> キーボード操作を送る</label>
+    </div>
+    <div class="text-send">
+      <input id="textInput" type="text" placeholder="送信するテキスト（日本語はこちらから）" maxlength="500">
+      <button id="textSendBtn" class="btn btn-sub" type="button">テキスト送信</button>
+    </div>
+    <p class="note">画面上でのクリック・ドラッグ・ホイールと、キー入力が共有側の PC に送られます。日本語の文章はテキスト送信から送ってください（共有側で直接入力されます）。</p>
+  </section>
+
+  <section class="card">
+    <h2>画面を共有する側（PC）</h2>
+    <p class="note">自分の PC の画面を共有して操作を受け付ける場合は、PC のブラウザで共有側ページを開いてください。操作を受け付けるには、PC で入力エージェント（RimoyaAgent）の起動も必要です（閲覧のみなら不要）。</p>
+    <p><a class="btn btn-sub" href="host.html">共有側ページを開く</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>リモや — 映像・操作信号は WebRTC で暗号化されます</p>
+</footer>
+
+<script src="lib/peer.min.js"></script>
+<script src="js/rimoya-core.js"></script>
+<script src="viewer.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

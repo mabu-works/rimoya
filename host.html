@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共有側｜リモや</title>
+<meta name="description" content="リモやの共有側ページ。このPCの画面を共有し、パスコードを知っている相手からの操作を受け付けます。">
+<meta name="theme-color" content="#0a0f1c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="./">リモや</a>
+    <span class="nav-note">共有側（この PC の画面を共有します）</span>
+  </div>
+</nav>
+
+<header class="site-header">
+  <p class="eyebrow">HOST</p>
+  <h1>画面を共有する</h1>
+  <p class="privacy-note">共有コードとパスコードは、このページを開いている間だけ有効です。ページを閉じると共有は終わります。</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1. 入力エージェント</h2>
+    <p class="note">操作（マウス・キーボード）を受け付けるには、この PC で入力エージェント「RimoyaAgent」を起動しておく必要があります。閲覧だけなら不要です。</p>
+    <p>状態: <strong id="helperStatus">未接続</strong>
+      <button id="helperRetryBtn" class="btn btn-sub" type="button">再接続</button></p>
+  </section>
+
+  <section class="card">
+    <h2>2. 共有の開始</h2>
+    <button id="startBtn" class="btn btn-primary" type="button">共有を開始</button>
+    <button id="stopBtn" class="btn btn-sub" type="button" disabled>共有を停止</button>
+    <p id="hostStatus" class="note" aria-live="polite">まだ共有していません。</p>
+    <div id="codeBox" class="code-box" hidden>
+      <div>
+        <span class="code-label">共有コード</span>
+        <span id="shareCode" class="code-value">------</span>
+      </div>
+      <div>
+        <span class="code-label">パスコード</span>
+        <span id="sharePass" class="code-value">------</span>
+      </div>
+      <p class="note">接続側の画面で、この2つを入力してもらってください。</p>
+    </div>
+  </section>
+
+  <section class="card" id="previewCard" hidden>
+    <h2>共有中の画面</h2>
+    <div class="video-wrap">
+      <video id="localVideo" autoplay playsinline muted></video>
+    </div>
+    <p id="peerInfo" class="note">接続待ちです。</p>
+  </section>
+
+  <section class="card">
+    <h2>使い方</h2>
+    <ol class="steps">
+      <li>この PC で RimoyaAgent を起動します（操作を受け付ける場合）。</li>
+      <li>「共有を開始」を押し、ブラウザの画面選択で共有する画面（またはウィンドウ）を選びます。</li>
+      <li>表示された共有コードとパスコードを、接続側（スマホや別の PC）のリモやで入力します。</li>
+      <li>終わったら「共有を停止」するか、このページを閉じてください。</li>
+    </ol>
+    <p><a class="btn btn-sub" href="./">接続側ページへ</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>リモや — 映像・操作信号は WebRTC で暗号化されます</p>
+</footer>
+
+<script src="lib/peer.min.js"></script>
+<script src="js/rimoya-core.js"></script>
+<script src="host.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
